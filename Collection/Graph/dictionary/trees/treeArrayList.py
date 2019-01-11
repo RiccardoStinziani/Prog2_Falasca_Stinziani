@@ -9,9 +9,9 @@
     n-ari dove i figli di un nodo sono raggruppati in
     una lista
 """
-from Collection.Graph.datastruct import Queue
+from Collection.Graph.datastruct.Queue import CodaArrayList_deque as Queue
 
-from Collection.Graph.datastruct.Stack import Pila
+from Collection.Graph.datastruct.Stack import PilaArrayList as Pila
 from Collection.Graph.dictionary.trees.tree import Tree
 
 

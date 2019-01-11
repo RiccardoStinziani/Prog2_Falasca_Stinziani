@@ -1,5 +1,3 @@
-from graph.Graph_IncidenceList import GraphIncidenceList as Graph
-
 
 class GraphHelper:
     """

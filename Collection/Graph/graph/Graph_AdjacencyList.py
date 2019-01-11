@@ -1,6 +1,5 @@
 from Collection.Graph.graph.Graph import GraphBase, Edge
-from Collection.Graph.list.LinkedList import ListaCollegata as List
-
+from Collection.Graph.list.DoubleLinkedList import ListaDoppiamenteCollegata as List
 
 class GraphAdjacencyList(GraphBase):
     """
@@ -94,46 +93,45 @@ class GraphAdjacencyList(GraphBase):
         """
         return list(self.nodes.values())
 
-    def insertEdge(self, tail, head, weight=None):
+    def insertEdge(self, node1, node2):
         """
          Add a new edge.
-        :param tail: the tail node ID (integer).
-        :param head: the head node ID (integer).
-        :param weight: the (optional) edge weight (floating-point).
+        :param node1: the tail node ID (integer).
+        :param node2: the head node ID (integer).
         :return: the created edge, if created; None, otherwise.
         """
         # if tail and head exist, add the entry into the adjacency list
-        if tail in self.nodes and head in self.nodes:  # TODO overwrite if edge already exists
-            self.adj[tail].addAsLast(head)
+        if node1 in self.nodes and node2 in self.nodes:  # TODO overwrite if edge already exists
+            self.adj[node1].addAsLast(node2)
 
-    def deleteEdge(self, tail, head):
+    def deleteEdge(self, node1, node2):
         """
         Remove the specified edge.
-        :param tail: the tail node ID (integer).
-        :param head: the head node ID (integer).
+        :param node1: the tail node ID (integer).
+        :param node2: the head node ID (integer).
         :return: void.
         """
-        # if tail and head exist, delete the edge
-        if tail in self.nodes and head in self.nodes:
-            curr = self.adj[tail].getFirstRecord()
+        # if node1 and node2 exist, delete the edge
+        if node1 in self.nodes and node2 in self.nodes:
+            curr = self.adj[node1].getFirstRecord()
             while curr is not None:
-                if curr.elem == head:
-                    self.adj[tail].deleteRecord(curr)
+                if curr.elem == node2:
+                    self.adj[node1].deleteRecord(curr)
                     break
                 curr = curr.next
 
-    def getEdge(self, tail, head):
+    def getEdge(self, node1, head):
         """
         Return the node, if exists.
-        :param tail: the tail node ID (integer).
+        :param node1: the tail node ID (integer).
         :param head: the head node ID (integer).
         :return: the edge, if exists; None, otherwise.
         """
-        if tail in self.nodes and head in self.nodes:
-            curr = self.adj[tail].getFirstRecord()
+        if node1 in self.nodes and head in self.nodes:
+            curr = self.adj[node1].getFirstRecord()
             while curr is not None:
                 if curr.elem == head:
-                    return Edge(tail, head, None)
+                    return Edge(node1, head)
                 curr = curr.next
         return None
 
@@ -141,12 +139,12 @@ class GraphAdjacencyList(GraphBase):
         """
         Return the list of edges.
         :return: the list of edges.
-        """
+ 3       """
         edges = []
         for adj_item in self.adj.items():
             curr = adj_item[1].getFirstRecord()
             while curr is not None:
-                edges.append(Edge(adj_item[0], curr.elem, None))
+                edges.append(Edge(adj_item[0], curr.elem))
                 curr = curr.next
         return edges
 
@@ -197,6 +195,19 @@ class GraphAdjacencyList(GraphBase):
         for adj_item in self.adj.items():
             print("{}:{}".format(adj_item[0], adj_item[1]))
 
+def getNodeMaxWeight(self):
+    idNodeMax = None
+    nodes = self.getnodes()
+    maxWeight = -1
+    for n in nodes:
+        if node.weight > maxWeight:
+            idNodeMax = node.id
+            maxWeight = node.weight
+    return self.getNode(idNodeMax)
+
+
+
+
 
 if __name__ == "__main__":
     graph = GraphAdjacencyList()
@@ -220,8 +231,7 @@ if __name__ == "__main__":
                 print("Adjacent nodes {},{}: {}"
                       .format(node_src.id, node_dst.id,
                               graph.isAdj(node_src.id, node_dst.id)))
-                graph.insertEdge(node_src.id, node_dst.id,
-                                 node_src.id + node_dst.id)
+                graph.insertEdge(node_src.id, node_dst.id)
                 print("Edge inserted: from {} to {}".format(node_src.id,
                                                             node_dst.id))
                 print("Adjacent nodes {},{}: {}"

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from strutture.LinkedList import ListaCollegata
-from strutture.Queue import CodaArrayList_deque as queue
+from Collection.priorityQueue.strutture.Queue import CodaArrayList_deque as queue
+
+from Collection.Graph.list.LinkedList import ListaCollegata
 
 
 class BinomialHeapNode:

@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
-from Collection.Graph.datastruct import Queue
 
-from Collection.Graph.datastruct import Stack
-from Collection.Graph.dictionary.trees.tree import Tree
+from Collection.Graph.datastruct.Queue import CodaArrayList_deque as Queue
 
-from Collection.Graph.graph import *
+from Collection.Graph.datastruct.Stack import PilaArrayList as Stack
+from Collection.Graph.dictionary.trees.treeArrayList import TreeArrayList as Tree
 
+from Collection.priorityQueue.PQbinomialHeap import PQbinomialHeap
+from Collection.Graph.dictionary.trees.treeArrayList import TALNode as TreeNode
 
 class Node:
     """
@@ -81,23 +82,22 @@ class Edge:
     The graph basic element: (weighted) edge.
     """
 
-    def __init__(self, tail, head, weight=None):
+    def __init__(self, node1, node2):
         """
         Constructor.
         :param tail: the tail node ID (integer).
         :param head: the head node ID (integer).
         :param weight: the (optional) edge weight (floating-point).
         """
-        self.head = head
-        self.tail = tail
-        self.weight = weight
+        self.node1 = node1
+        self.node2 = node2
 
     def __str__(self):
         """
         Returns the string representation of the edge.
         :return: the string representation of the edge.
         """
-        return "({},{},{})".format(self.tail, self.head, self.weight)
+        return "({},{})".format(self.node1, self.node2)
 
 class GraphBase(ABC):
     """
@@ -134,13 +134,13 @@ class GraphBase(ABC):
         ...
 
     @abstractmethod
-    def addNode(self, elem, weight):
+    def addNode(self, value, weight):
         """
         Add a new node with the specified value.
-        :param elem: the node value.
+        :param value: the node value.
         :return: the create node.
         """
-        newNode = Node(self.nextId, elem, weight)
+        newNode = Node(self.nextId, value, weight)
         self.nextId += 1
         return newNode
 
@@ -171,31 +171,30 @@ class GraphBase(ABC):
         ...
 
     @abstractmethod
-    def insertEdge(self, tail, head, weight=None):
+    def insertEdge(self, node1, node2):
         """
         Add a new edge.
-        :param tail: the tail node ID (integer).
-        :param head: the head node ID (integer).
-        :param weight: the (optional) edge weight (floating-point).
+        :param node1: the tail node ID (integer).
+        :param node2: the head node ID (integer).
         :return: the created edge, if created; None, otherwise.
         """
         ...
 
     @abstractmethod
-    def deleteEdge(self, tail, head):
+    def deleteEdge(self, node1, node2):
         """
         Remove the specified edge.
-        :param tail: the tail node ID (integer).
-        :param head: the head node ID (integer).
+        :param node1: the tail node ID (integer).
+        :param node2: the head node ID (integer).
         :return: void.
         """
         ...
 
-    def getEdge(self, tail, head):
+    def getEdge(self, node1, node2):
         """
         Return the node, if exists.
-        :param tail: the tail node ID (integer).
-        :param head: the head node ID (integer).
+        :param node1: the tail node ID (integer).
+        :param node2: the head node ID (integer).
         :return: the edge, if exists; None, otherwise.
         """
         ...
@@ -208,11 +207,11 @@ class GraphBase(ABC):
         ...
 
     @abstractmethod
-    def isAdj(self, tail, head):
+    def isAdj(self, node1, node2):
         """
         Checks if two nodes ar adjacent.
-        :param tail: the tail node ID (integer).
-        :param head: the head node ID (integer).
+        :param node1: the tail node ID (integer).
+        :param node2: the head node ID (integer).
         :return: True, if the two nodes are adjacent; False, otherwise.
         """
         # Note: this method only checks if tail and head exist

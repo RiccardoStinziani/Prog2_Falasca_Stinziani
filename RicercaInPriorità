@@ -1,1 +1,17 @@
-class 
+from Collection.priorityQueue.PQbinomialHeap import PQbinomialHeap
+
+from Collection.Graph.list import LinkedList as list
+from Collection.Graph.graph import Graph
+
+def priorityVisit(grafo):
+    s = grafo.getMax()
+    coda = PQbinomialHeap.insert(s.getkey(),s.getvalue(), s.getweight())
+    lista = list.ListaCollegata.addAsLast(s)
+    while(coda.isEmpty()):
+        u = coda.deleteMin()
+        lista.list.ListaCollegata.addAsLast(u)
+        coda = grafo.genericSearch(s)
+
+
+def graphGenerator(numberOfNodes):
+    pass
