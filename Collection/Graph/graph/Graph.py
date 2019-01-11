@@ -76,6 +76,11 @@ class Node:
         """
         return self.weight == other.weight
 
+    def getId(self):
+        return self.id
+
+    def getWeight(self):
+        return self.weight
 
 class Edge:
     """
