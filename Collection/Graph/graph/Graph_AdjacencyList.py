@@ -120,18 +120,18 @@ class GraphAdjacencyList(GraphBase):
                     break
                 curr = curr.next
 
-    def getEdge(self, node1, head):
+    def getEdge(self, node1, node2):
         """
         Return the node, if exists.
         :param node1: the tail node ID (integer).
-        :param head: the head node ID (integer).
+        :param node2: the head node ID (integer).
         :return: the edge, if exists; None, otherwise.
         """
-        if node1 in self.nodes and head in self.nodes:
+        if node1 in self.nodes and node2 in self.nodes:
             curr = self.adj[node1].getFirstRecord()
             while curr is not None:
-                if curr.elem == head:
-                    return Edge(node1, head)
+                if curr.elem == node2:
+                    return Edge(node1, node2)
                 curr = curr.next
         return None
 
@@ -148,19 +148,19 @@ class GraphAdjacencyList(GraphBase):
                 curr = curr.next
         return edges
 
-    def isAdj(self, tail, head):
+    def isAdj(self, node1, node2):
         """
         Checks if two nodes ar adjacent.
-        :param tail: the tail node ID (integer).
-        :param head: the head node ID (integer).
+        :param node1: the tail node ID (integer).
+        :param node2: the head node ID (integer).
         :return: True, if the two nodes are adjacent; False, otherwise.
         """
         # if tail and head exist, look for the entry in the adjacency list
-        if tail in self.nodes and head in self.nodes:
-            curr = self.adj[tail].getFirstRecord()
+        if node1 in self.nodes and node2 in self.nodes:
+            curr = self.adj[node1].getFirstRecord()
             while curr is not None:
                 nodeId = curr.elem
-                if nodeId == head:
+                if nodeId == node2:
                     return True
                 curr = curr.next
 
