@@ -1,10 +1,11 @@
+from Collection.Graph.graph.Graph_AdjacencyList import GraphAdjacencyList
 from Collection.priorityQueue.PQbinomialHeap import PQbinomialHeap
 
 from Collection.Graph.list import LinkedList as list
 from Collection.Graph.graph import Graph
 
 def priorityVisit(graph):
-    verticeMax = graph.getMax()
+    verticeMax = graph.getNodeMaxWeight()
     priorityQueue = PQbinomialHeap()
     priorityQueue.insert(verticeMax.getId(), verticeMax.getWeight())
     markedNodes = [verticeMax.getId]
@@ -14,7 +15,7 @@ def priorityVisit(graph):
         idNode = priorityQueue.findMax()                #DA FAREEEEEEEEEEEEEEEEEEEEEEEEEE nb farlo per tutte le code con priorità
         list.append(idNode)
         priorityQueue.deleteMax()                       #DA FARE
-        adjacentNodes = graph.getAdj()
+        adjacentNodes = graph.getAdj(idNode)
         for nodeIndex in adjacentNodes:
             if nodeIndex not in markedNodes:
                 node = graph.getNode(nodeIndex)
@@ -24,3 +25,46 @@ def priorityVisit(graph):
 
 def graphGenerator(numberOfNodes):
     pass
+
+if __name__ == "__main__":
+    graph = GraphAdjacencyList()
+
+    nodes = []
+    node = graph.addNode(2, 81)
+    nodes.append(node)
+    node = graph.addNode(4, 22)
+    nodes.append(node)
+    node = graph.addNode(6, 12)
+    nodes.append(node)
+    node = graph.addNode(8, 32)
+    nodes.append(node)
+    node = graph.addNode(10, 26)
+    nodes.append(node)
+    node = graph.addNode(12, 14)
+    nodes.append(node)
+    node = graph.addNode(14, 40)
+    nodes.append(node)
+    node = graph.addNode(16, 7)
+    nodes.append(node)
+    node = graph.addNode(18, 6)
+    nodes.append(node)
+    node = graph.addNode(20, 4)
+    nodes.append(node)
+
+    graph.insertEdge(nodes[7].getId(), nodes[4].getId())
+    graph.insertEdge(nodes[7].getId(), nodes[2].getId())
+    graph.insertEdge(nodes[2].getId(), nodes[4].getId())
+    graph.insertEdge(nodes[2].getId(), nodes[3].getId())
+    graph.insertEdge(nodes[2].getId(), nodes[5].getId())
+    graph.insertEdge(nodes[3].getId(), nodes[5].getId())
+    graph.insertEdge(nodes[6].getId(), nodes[5].getId())
+    graph.insertEdge(nodes[6].getId(), nodes[8].getId())
+    graph.insertEdge(nodes[0].getId(), nodes[8].getId())
+    graph.insertEdge(nodes[0].getId(), nodes[2].getId())
+    graph.insertEdge(nodes[0].getId(), nodes[1].getId())
+    graph.insertEdge(nodes[0].getId(), nodes[9].getId())
+    graph.insertEdge(nodes[1].getId(), nodes[9].getId())
+
+    graph.print()
+
+    print(priorityVisit(graph))

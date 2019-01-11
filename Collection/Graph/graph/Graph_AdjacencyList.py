@@ -195,15 +195,15 @@ class GraphAdjacencyList(GraphBase):
         for adj_item in self.adj.items():
             print("{}:{}".format(adj_item[0], adj_item[1]))
 
-def getNodeMaxWeight(self):
-    idNodeMax = None
-    nodes = self.getnodes()
-    maxWeight = -1
-    for n in nodes:
-        if node.weight > maxWeight:
-            idNodeMax = node.id
-            maxWeight = node.weight
-    return self.getNode(idNodeMax)
+    def getNodeMaxWeight(self):
+        idNodeMax = None
+        nodes = self.getNodes()
+        maxWeight = -1
+        for node in nodes:
+            if node.weight > maxWeight:
+                idNodeMax = node.id
+                maxWeight = node.weight
+        return self.getNode(idNodeMax)
 
 
 

@@ -30,11 +30,11 @@ class BinomialHeap:
         self.root = BinomialHeapNode(e, k)
 
     def merge(self, otherHeap):
-        """Unisci i due alberi sotto la radice di chiave minima."""
+        """Unisci i due alberi sotto la radice di chiave massima."""
         thisRoot = self.root
         otherRoot = otherHeap.root
 
-        if thisRoot.key <= otherRoot.key:
+        if thisRoot.key >= otherRoot.key:
             otherRoot.father = thisRoot
             thisRoot.addSon(otherRoot)
             return self
@@ -137,41 +137,41 @@ class PQbinomialHeap:
             self.rebuild()
         return root
 
-    def findMinIndex(self):
+    def findMaxIndex(self):
         """Restituisce l'indice dell'heap la cui radice ha chiave minima."""
-        minKeyIndex = -1  # valore di default per indicare errore
+        maxKeyIndex = -1  # valore di default per indicare errore
         if self.isEmpty():
-            return minKeyIndex
+            return maxKeyIndex
 
         # Trova la posizione del primo heap non vuoto.
         startIndex = 0
         for i in range(PQbinomialHeap.MAXSIZE):
             if self.heap[i][0] != None:
-                startIndex = minKeyIndex = i
+                startIndex = maxKeyIndex = i
                 break
 
-        # Trova l'indice del heap con radice a chiave minima.
+        # Trova l'indice del heap con radice a chiave massima.
         for i in range(startIndex + 1, PQbinomialHeap.MAXSIZE):
             if self.heap[i][0] != None and \
-                            self.heap[i][0].root.key < self.heap[minKeyIndex][0].root.key:
-                minKeyIndex = i
-        return minKeyIndex
+                            self.heap[i][0].root.key > self.heap[maxKeyIndex][0].root.key:
+                maxKeyIndex = i
+        return maxKeyIndex
 
-    def findMin(self):
-        """Restituisce la radice dell'heap con chiave minima."""
+    def findMax(self):
+        """Restituisce la radice dell'heap con chiave massima."""
         if self.isEmpty():
             return None
-        return self.heap[self.findMinIndex()][0].root.elem
+        return self.heap[self.findMaxIndex()][0].root.elem
 
-    def deleteMin(self):
+    def deleteMax(self):
 
         if self.isEmpty():
             return
 
-        index = self.findMinIndex()
+        index = self.findMaxIndex()
         nuovi = self.heap[index][0].getHeapSons()  # Prendi i figli del B-index
 
-        self.heap[index][0] = None  # elimino il minimo
+        self.heap[index][0] = None  # elimino il massimo
         count = 0
         curr = nuovi.getFirstRecord()  # Il primo figlio sara' un B0, il secondo un B1...
 
@@ -202,40 +202,40 @@ def main():
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 2.0
     k = 1.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 8.0
     k = 4.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 10.0
     k = 5.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 6.0
     k = 3.0
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
-    print("deleteMin()")
-    pq.deleteMin()
+    print("deleteMax()")
+    pq.deleteMax()
     pq.stampa()
-    print("findMin():", pq.findMin())
+    print("findMax():", pq.findMax())
 
     e = 12.0
     k = 6.0
@@ -250,8 +250,8 @@ def main():
     print("insert({},{})".format(e, k))
     pq.insert(e, k)
 
-    print("deleteMin()")
-    pq.deleteMin()
+    print("deleteMax()")
+    pq.deleteMax()
     pq.stampa()
 
     e = 4.0
