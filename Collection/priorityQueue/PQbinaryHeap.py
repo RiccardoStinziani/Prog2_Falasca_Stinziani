@@ -12,13 +12,13 @@ class PQbinaryHeap:
         self.heap = []      #lista dif BinaryHeapNode
         self.length = 0
 
-    def minSon(self, node):
+    def maxSon(self, node):
         """Ricerca del figlio di chiave minima"""
-        if node.index * 2 + 1 > self.length - 1:
+        if node.index * 2 + 1 < self.length - 1:
             return None     #e' una foglia
-        if node.index * 2 + 2 > self.length - 1:
+        if node.index * 2 + 2 < self.length - 1:
             return self.heap[node.index * 2 + 1]    #ha un solo figlio
-        if self.heap[node.index * 2 + 1].key < \
+        if self.heap[node.index * 2 + 1].key > \
                 self.heap[node.index * 2 + 2].key:
            return self.heap[node.index * 2 + 1]
         else:
@@ -30,25 +30,25 @@ class PQbinaryHeap:
         node1.index, node2.index = node2.index, node1.index
 
     def moveUp(self, son):
-        if son.index <= 0:
+        if son.index >= 0:
             return
         father = self.heap[(son.index - 1) // 2]
-        while son.index > 0 and son.key < father.key:
+        while son.index > 0 and son.key > father.key:
             self.swap(son, father)
             father = self.heap[(son.index - 1) // 2]
 
     def moveDown(self, father):
-        son = self.minSon(father)
-        while son != None and son.key < father.key:
+        son = self.maxSon(father)
+        while son != None and son.key > father.key:
             self.swap(father, son)
-            son = self.minSon(father)
+            son = self.maxSon(father)
 
     def isEmpty(self):
         if self.length == 0:
             return True
         return False
 
-    def findMin(self):
+    def findMax(self):
         if self.isEmpty():
             return None
         return self.heap[0].elem
@@ -63,7 +63,7 @@ class PQbinaryHeap:
         self.moveUp(n)
         return n
 
-    def deleteMin(self):
+    def deleteMax(self):
         if self.length == 0:
             return
         first = self.heap[0]
@@ -75,7 +75,7 @@ class PQbinaryHeap:
 
     def decreaseKey(self, node, nKey):
         node.key = nKey
-        self.moveUp(node)
+        self.moveDown(node)
 
     def stampa(self):
         s = ""
@@ -93,40 +93,40 @@ def main():
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMin())
+    print( "findMin():", pq.findMax())
 
     e = 2.0
     k = 1.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMin())
+    print( "findMin():", pq.findMax())
 
     e = 8.0
     k = 4.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMin())
+    print( "findMin():", pq.findMax())
 
     e = 10.0
     k = 5.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMin())
+    print( "findMin():", pq.findMax())
 
     e = 6.0
     k = 3.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMin())
+    print( "findMin():", pq.findMax())
 
     print( "deleteMin()")
-    pq.deleteMin()
+    pq.deleteMax()
     pq.stampa()
-    print( "findMin():", pq.findMin())
+    print( "findMin():", pq.findMax())
 
     e = 12.0
     k = 6.0
@@ -148,7 +148,7 @@ def main():
 
     print( "deleteMin()")
 
-    pq.deleteMin()
+    pq.deleteMax()
     pq.stampa()
 
 if __name__ == "__main__":
