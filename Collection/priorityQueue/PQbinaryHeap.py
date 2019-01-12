@@ -13,7 +13,7 @@ class PQbinaryHeap:
         self.length = 0
 
     def maxSon(self, node):
-        """Ricerca del figlio di chiave minima"""
+        """Ricerca del figlio di chiave Maxima"""
         if node.index * 2 + 1 < self.length - 1:
             return None     #e' una foglia
         if node.index * 2 + 2 < self.length - 1:
@@ -93,40 +93,40 @@ def main():
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMax())
+    print( "findMax():", pq.findMax())
 
     e = 2.0
     k = 1.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMax())
+    print( "findMax():", pq.findMax())
 
     e = 8.0
     k = 4.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMax())
+    print( "findMax():", pq.findMax())
 
     e = 10.0
     k = 5.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMax())
+    print( "findMax():", pq.findMax())
 
     e = 6.0
     k = 3.0
     print( "insert({},{})".format(e, k))
     pq.insert(e, k)
     pq.stampa()
-    print( "findMin():", pq.findMax())
+    print( "findMax():", pq.findMax())
 
-    print( "deleteMin()")
+    print( "deleteMax()")
     pq.deleteMax()
     pq.stampa()
-    print( "findMin():", pq.findMax())
+    print( "findMax():", pq.findMax())
 
     e = 12.0
     k = 6.0
@@ -146,7 +146,7 @@ def main():
     pq.insert(e, k)
     pq.stampa()
 
-    print( "deleteMin()")
+    print( "deleteMax()")
 
     pq.deleteMax()
     pq.stampa()

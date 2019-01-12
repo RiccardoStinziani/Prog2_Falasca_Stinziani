@@ -5,9 +5,21 @@ from Collection.priorityQueue.PQbinaryHeap import PQbinaryHeap
 import random
 
 
-def priorityVisit(graph):
+def priorityVisit(graph, pq, d = 2):
+    """
+        Do the priority visit
+        :param graph: object of Graph_AdicencyList.
+        :param pq: Priority Queue; True for PQBiniomalHeap; False for PQ_Dheap.
+        :param d: Number of sons in the case you chose the Priority Queue PQ_Dheap
+        :return: The list of the nodes' index
+    """
     verticeMax = graph.getNodeMaxWeight()
-    priorityQueue = PQbinomialHeap()
+    if(pq == True):
+        priorityQueue = PQbinomialHeap()
+    elif(pq == False and d > 1):
+        priorityQueue = PQ_DHeap(d)
+    else:
+        raise("sei scemo")
     priorityQueue.insert(verticeMax.getId(), verticeMax.getWeight())
     markedNodes = [verticeMax.getId()]
     list = []
@@ -73,5 +85,4 @@ def graphGenerator(numberOfNodes):
 
 
 if __name__ == "__main__":
-
-    graphGenerator(90000)
+    print(priorityVisit(graphGenerator(10)))
