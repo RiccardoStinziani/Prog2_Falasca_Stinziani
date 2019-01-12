@@ -1,3 +1,5 @@
+import cProfile
+import pstats
 from time import time
 
 from Collection.Graph.graph.Graph_AdjacencyList import GraphAdjacencyList
@@ -71,26 +73,29 @@ def graphGenerator(numberOfNodes, numberOfEdges):
 
         node1 = nodes.pop(random.randint(0, n - 1)).getId()
         n -= 1
-        while(len(graph.getAdj(node1)) == numberOfNodes - 1):
+        adj = graph.getAdj(node1)
+        while(len(adj) == numberOfNodes - 1):
             node1 = nodes.pop(random.randint(0, n - 1)).getId()
             n -= 1
+            adj = graph.getAdj(node1)
 
         node2 = nodes.pop(random.randint(0, n - 1)).getId()
         n -= 1
-        while(graph.isAdj(node1, node2)):
+        while(node2 in adj):
             node2 = nodes.pop(random.randint(0, n - 1)).getId()
             n -= 1
 
         graph.insertEdge(node1, node2)
         graph.insertEdge(node2, node1)
     #print("Numero Archi:", int(len(graph.getEdges()) / 2))
+    #graph.print()
     return graph
 
 
 if __name__ == "__main__":
     nGraphInList = 10
     testDic = {0 : True, 2 : False, 3 : False, 5 : False, 10 : False, 20 : False}
-    rangeList = [10, 60, 120, 240, 300]
+    rangeList = [10, 50, 100, 250, 500, 1000]
     for n in rangeList:
         print("\n")
         print("+++++++++++++")
@@ -128,4 +133,5 @@ if __name__ == "__main__":
                 print("\t\t--------------------------")
                 print("\t\t", endTime)
                 print("\t\t--------------------------")
+
 
