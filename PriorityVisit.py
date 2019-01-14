@@ -30,8 +30,6 @@ def priorityVisit(graph, pq, d = 2):
     while not priorityQueue.isEmpty():
         idNode = priorityQueue.findMax()
         list.append(idNode)
-    #   print("id: ", idNode)
-    #   print("peso: ", graph.getNode(idNode).getWeight(), "\n\n")
         priorityQueue.deleteMax()
         adjacentNodes = graph.getAdj(idNode)
         for nodeIndex in adjacentNodes:
@@ -42,6 +40,12 @@ def priorityVisit(graph, pq, d = 2):
     return list
 
 def graphGenerator(numberOfNodes, numberOfEdges):
+    """
+        Generate a graph
+        :param numberOfNodes: number of nodes of the graph (Integer).
+        :param numberOfEdges: number of edges of the graph (Integer).
+        :return: Object of Graph_AdicencyList
+    """
     if(numberOfEdges < numberOfNodes - 1 or numberOfEdges > (numberOfNodes * (numberOfNodes - 1)) / 2):
         raise Exception("Valore di numberOfEdges non idoneo")
     if(numberOfNodes < 2):
@@ -87,12 +91,12 @@ def graphGenerator(numberOfNodes, numberOfEdges):
 
         graph.insertEdge(node1, node2)
         graph.insertEdge(node2, node1)
-    #print("Numero Archi:", int(len(graph.getEdges()) / 2))
-    #graph.print()
     return graph
 
 
 if __name__ == "__main__":
+
+    #Codice per i test
     nGraphInList = 10
     testDic = {0 : True, 2 : False, 3 : False, 5 : False, 10 : False, 20 : False}
     rangeList = [10, 50, 100, 250, 500, 1000]
@@ -133,5 +137,10 @@ if __name__ == "__main__":
                 print("\t\t--------------------------")
                 print("\t\t", endTime)
                 print("\t\t--------------------------")
+
+    #Esempio di utilizzo
+    graph = graphGenerator(20, 28)
+    graph.print()
+    print(priorityVisit(graph, True))
 
 
